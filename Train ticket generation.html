@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Booking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        body { background: linear-gradient(145deg, #c7d2fe, #e0e7ff); font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="p-8">
+
+    <header class="text-center py-6 bg-white bg-opacity-30 shadow-md rounded-lg mb-8">
+        <h1 class="text-4xl font-bold">🚄 Train Booking System</h1>
+    </header>
+
+    <section class="max-w-4xl mx-auto p-6 bg-white bg-opacity-30 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4">Find Trains</h2>
+        <form id="booking-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <select id="source" required class="p-3 rounded-lg shadow-md">
+                <option value="">From</option>
+                <option value="Erode">Erode</option>
+                <option value="Salem">Salem</option>
+                <option value="Tirupur">Tirupur</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Katpadi">Katpadi</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Tirupati">Tirupati</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Palakkad">Palakkad</option>
+            </select>
+
+            <select id="toPlace" required class="p-3 rounded-lg shadow-md">
+                <option value="">To</option>
+                <option value="Erode">Erode</option>
+                <option value="Salem">Salem</option>
+                <option value="Tirupur">Tirupur</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Katpadi">Katpadi</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Tirupati">Tirupati</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Palakkad">Palakkad</option>
+            </select>
+
+            <input type="date" id="date" required class="p-3 rounded-lg shadow-md">
+            <select id="class" required class="p-3 rounded-lg shadow-md">
+                <option value="">Select Class</option>
+                <option value="Sleeper">Sleeper</option>
+                <option value="AC">AC</option>
+            </select>
+            <button type="submit" class="col-span-2 bg-green-400 hover:bg-green-500 text-white p-3 rounded-lg font-bold shadow-md">Search Trains</button>
+        </form>
+    </section>
+
+    <section id="trainList" class="max-w-4xl mx-auto mt-6 p-6 bg-white bg-opacity-30 rounded-lg shadow-lg"></section>
+
+    <section id="passengerDetails" class="hidden max-w-4xl mx-auto mt-6 p-6 bg-white bg-opacity-30 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4">Enter Passenger Details</h2>
+        <form id="passenger-form" class="grid gap-4">
+            <input type="number" id="numPassengers" placeholder="Number of Passengers" required min="1" class="p-3 rounded-lg shadow-md">
+            <div id="passengerInputs" class="grid gap-4"></div>
+            <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-lg font-bold shadow-md">Book Ticket</button>
+        </form>
+    </section>
+
+    <div id="ticket" class="hidden max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg mt-8">
+        <h2 class="text-2xl font-semibold mb-4">Your Ticket</h2>
+        <p><strong>From:</strong> <span id="ticketSource"></span></p>
+        <p><strong>To:</strong> <span id="ticketDestination"></span></p>
+        <p><strong>Date:</strong> <span id="ticketDate"></span></p>
+        <p><strong>Class:</strong> <span id="ticketClass"></span></p>
+        <p><strong>Passengers:</strong> <span id="ticketPassengers"></span></p>
+    </div>
+
+    <script>
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('passengerDetails').classList.remove('hidden');
+        });
+
+        document.getElementById('numPassengers').addEventListener('input', function() {
+            const num = this.value;
+            const container = document.getElementById('passengerInputs');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= num; i++) {
+                container.innerHTML += `
+                    <div class='p-4 bg-white bg-opacity-70 rounded-lg shadow-md'>
+                        <h4 class='font-semibold'>Passenger ${i}</h4>
+                        <input type='text' placeholder='Name' required class='p-2 rounded-lg w-full mb-2'>
+                        <input type='number' placeholder='Age' required class='p-2 rounded-lg w-full mb-2'>
+                        <select required class='p-2 rounded-lg w-full'>
+                            <option value=''>Seat Preference</option>
+                            <option value='Window'>Window</option>
+                            <option value='Aisle'>Aisle</option>
+                        </select>
+                    </div>`;
+            }
+        });
+
+        document.getElementById('passenger-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('ticket').classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
